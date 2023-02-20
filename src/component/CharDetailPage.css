@@ -1,0 +1,33 @@
+.detail-element {
+    display: flex;
+    flex-direction: row;
+    margin: 1vw;
+    width: 45vw;
+    justify-self: center;
+    box-shadow: 8px 9px 5px 0 rgba(0, 0, 0, 0.29);
+    border-style: solid;
+    border-radius: 10px;
+}
+.advanced-details {
+    margin: 1vw;
+    width: 100%;
+
+}
+.char-prop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+h3 {
+    margin-right: 3px;
+}
+.prop-value {
+    display: inline;
+    text-align: right;
+    vertical-align: bottom;
+}
+.detail-page-body {
+    display: flex;
+    justify-content: center;
+}

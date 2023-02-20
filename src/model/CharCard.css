@@ -1,0 +1,25 @@
+.card {
+    background-color: #12B0C9;
+    border-radius: 50px;
+    font-family: "AR ESSENCE", serif;
+    border: darkblue solid 5px;
+}
+.card.alive {
+
+}
+.card.notalive {
+    filter: grayscale(100%);
+}
+.cardBottom {
+    font-family: Calibri, serif;
+    display: flex;
+    justify-content: space-evenly;
+    padding-left: 2vmin;
+
+}
+.details{
+    align-self: center;
+}
+.charspecies {
+    justify-self: left;
+}
