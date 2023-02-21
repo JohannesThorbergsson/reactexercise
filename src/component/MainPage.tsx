@@ -1,10 +1,9 @@
 import CharGalleryPage from "./CharGalleryPage";
 import {Character} from "../model/Character";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import {Episode} from "../model/Episode";
-import {Route, Routes} from "react-router-dom";
-import CharDetailPage from "./CharDetailPage";
-import useItemGallery from "../hooks/useItemGallery";
+import EpisodeGallery from "./EpisodeGallery";
+
 type MainPageProps = {
     fetchNextPage(): void
     pageDown(): void
@@ -14,12 +13,14 @@ type MainPageProps = {
     rmApiChars: Character[]
     handleFilter(filter: string): void
     text: string
+    setGalleryState(state:string): void
+    galleryState: string
 }
 export default function MainPage(props: MainPageProps) {
-    const[selectedG, setGallery] = useState("characters")
 
     function handleGallerySelector(event: ChangeEvent<HTMLInputElement>){
-        setGallery(event.target.value)
+        props.setGalleryState(event.target.value)
+
     }
     return (
         <>
@@ -33,16 +34,15 @@ export default function MainPage(props: MainPageProps) {
                 <label htmlFor="episodes">Episodes</label>
 
             </div>
-            {selectedG==="characters"?
+            {props.galleryState==="characters"?
                 <>
                     <CharGalleryPage fetchNextPage={props.fetchNextPage} filteredChars={props.filteredChars}
                                      handleFilter={props.handleFilter} handleText={props.handleText}
                                      pageDown={props.pageDown} rmApiChars={props.rmApiChars} text={props.text}
                                      episodes={props.rmApiEpisodes} galleryType={"characters"}/>
                 </>:
-                <p>Invalid</p>}
-
-
+                <EpisodeGallery episodes={props.rmApiEpisodes}/>
+                    }
         </>
     )
 }

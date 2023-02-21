@@ -11,7 +11,7 @@ export default function useItemGallery(galleryType: string){
     const filteredChars: Character[] = applyFilter(rmApiChars)
     const [page, setPage] = useState<number>(1)
     const [rmApiEpisodes, setEpisodes] =useState<Episode[]>([])
-    useEffect(fetchRMApiData, [page])
+    useEffect(fetchRMApiData, [page, galleryState])
 
     function fetchRMApiData() {
         if (galleryState==="episodes") {
@@ -45,5 +45,6 @@ export default function useItemGallery(galleryType: string){
                 .includes(text.toLowerCase()))
         else return []
     }
-    return {handleFilter, handleText, pageDown, fetchNextPage, filteredChars, rmApiChars, text, setGalleryState, rmApiEpisodes}
+    return {handleFilter, handleText, pageDown, fetchNextPage, filteredChars, rmApiChars,
+        text, setGalleryState, rmApiEpisodes, galleryState}
 }
