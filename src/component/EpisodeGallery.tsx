@@ -1,7 +1,7 @@
 
 import React from "react";
 import {Episode} from "../model/Episode";
-import EpisodeCard from "./Episode Card";
+import EpisodeCard from "./EpisodeCard";
 type episodeGalleryProp = {
     episodes: Episode[]
 }

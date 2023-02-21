@@ -9,12 +9,13 @@ export default function EpisodeCard(Props: episodeProp) {
     return (
         <div className={"episode-card"}>
             <h1>
-                {Props.episode.name}
+                {"Episode Name: " +Props.episode.name}
             </h1>
+            <h3>Episode List</h3>
             {Props.episode.characters.map(c => <p>{c}</p>)}
             <section>
                 <h3 className={"air-date"}>
-                    Air Date:
+                    {"Air Date: " +Props.episode.air_date}
                 </h3>
                 {/*<Link className={"details"} to={"/details/"+Props.character.id}>Details</Link>*/}
             </section>
