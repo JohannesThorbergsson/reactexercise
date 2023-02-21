@@ -1,0 +1,10 @@
+.episode-gallery {
+    background-image: url("rmBackground.bmp");
+    display: flex;
+    flex-wrap: wrap;
+    border: lawngreen 2px;
+    border-radius: 5px;
+    gap: 1em;
+    justify-content: center;
+    padding-top: 1vmax;
+}

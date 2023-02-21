@@ -4,9 +4,7 @@
     font-family: "AR ESSENCE", serif;
     border: darkblue solid 5px;
 }
-.card.alive {
 
-}
 .card.notalive {
     filter: grayscale(100%);
 }

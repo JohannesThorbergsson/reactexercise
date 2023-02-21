@@ -5,6 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import CharDetailPage from "./component/CharDetailPage";
 import useItemGallery from "./hooks/useItemGallery";
 import MainPage from "./component/MainPage";
+import EpisodeDetailPage from "./component/EpisodeDetails";
 
 function App() {
     const {handleText, handleFilter, filteredChars, fetchNextPage, pageDown, rmApiChars,
@@ -20,6 +21,7 @@ function App() {
       </header>
         <Routes>
             <Route path={"/details/:id"} element={<CharDetailPage chars={rmApiChars}/>}/>
+            <Route path={"/episode/details/:id"} element={<EpisodeDetailPage  episodes={rmApiEpisodes}/>}/>
             <Route path={"/"} element=
                 {<MainPage fetchNextPage={fetchNextPage} filteredChars={filteredChars}
                            handleFilter={handleFilter} handleText={handleText} pageDown={pageDown}

@@ -1,6 +1,6 @@
 import React from 'react';
-import CharCard from "../model/CharCard";
-import "../model/CharCard.css"
+import CharCard from "./CharCard";
+import "./CharCard.css"
 import "./CharacterGallery.css"
 type origin = {name: string, url: string}
 type location = {name: string, url: string}

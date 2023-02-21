@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Character} from "./Character";
+import {Character} from "../model/Character";
 type location = {name: string, url: string}
 type charProp = {
     character: Character,
