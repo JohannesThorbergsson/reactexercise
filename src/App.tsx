@@ -8,12 +8,8 @@ import useItemGallery from "./hooks/useItemGallery";
 import MainPage from "./component/MainPage";
 
 function App() {
-    const[selectedG, setGallery] = useState("characters")
     const {handleText, handleFilter, filteredChars, fetchNextPage, pageDown, rmApiChars, text, setGalleryState,rmApiEpisodes} =
         useItemGallery("character")
-    function handleGallerySelector(event: ChangeEvent<HTMLInputElement>){
-        setGallery(event.target.value)
-    }
 
   return (
     <div className="App">
@@ -23,30 +19,14 @@ function App() {
           <strong>The Rick and Morty character gallery</strong>
         </h1>
       </header>
-        <div>
-            <p>Navigate</p>
-            <input onChange={handleGallerySelector} type="radio" id="chars"
-                   name="selectedGallery" value="characters"/>
-            <label htmlFor="chars">Characters</label>
-            <input onChange={handleGallerySelector} type="radio" id="episodes"
-                   name="selectedGallery" value="episodes"/>
-            <label htmlFor="episodes">Episodes</label>
 
-        </div>
-        {selectedG==="characters"?
-            <>
-                <CharGalleryPage fetchNextPage={fetchNextPage} filteredChars={filteredChars}
-                                 handleFilter={handleFilter} handleText={handleText}
-                                 pageDown={pageDown} rmApiChars={rmApiChars} text={text}
-                                 episodes={rmApiEpisodes} galleryType={"characters"}/>
-            </>:
-            <p>Invalid</p>}
-                <Routes>
-                    <Route path={"/details/:id"} element={<CharDetailPage chars={rmApiChars}/>}/>
-                    {/*<Route path={""} element=*/}
-                    {/*    {<MainPage/>}/>*/}
-                </Routes>
-
+        <Routes>
+            <Route path={"/details/:id"} element={<CharDetailPage chars={rmApiChars}/>}/>
+            <Route path={"/"} element=
+                {<MainPage fetchNextPage={fetchNextPage} filteredChars={filteredChars}
+                           handleFilter={handleFilter} handleText={handleText} pageDown={pageDown}
+                           rmApiChars={rmApiChars} rmApiEpisodes={rmApiEpisodes} text={text}/>}/>
+        </Routes>
     </div>
   )
 }

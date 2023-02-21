@@ -1,35 +1,48 @@
-import CharacterGallery from "./CharacterGallery";
-import React from "react";
-import {Character} from "./Character";
-import InputText from "./InputText";
-import FilterByProp from "./FilterByProp";
-import "./MainPage.css"
-
+import CharGalleryPage from "./CharGalleryPage";
+import {Character} from "../model/Character";
+import React, {ChangeEvent, useState} from "react";
+import {Episode} from "../model/Episode";
+import {Route, Routes} from "react-router-dom";
+import CharDetailPage from "./CharDetailPage";
+import useItemGallery from "../hooks/useItemGallery";
 type MainPageProps = {
-    filteredChars: Character[]
-    rmApiChars: Character[]
-    text: string
     fetchNextPage(): void
     pageDown(): void
-    handleText(text: string):void
-    handleFilter(filter:string): void
-
+    handleText(text: string): void
+    rmApiEpisodes: Episode[]
+    filteredChars: Character[]
+    rmApiChars: Character[]
+    handleFilter(filter: string): void
+    text: string
 }
+export default function MainPage(props: MainPageProps) {
+    const[selectedG, setGallery] = useState("characters")
 
-export default function MainPage(props: MainPageProps){
+    function handleGallerySelector(event: ChangeEvent<HTMLInputElement>){
+        setGallery(event.target.value)
+    }
     return (
         <>
-            <div className={"Filter"}>
-                <FilterByProp handleFilter={props.handleFilter}/>
-                <button className={"filter-element"} onClick={props.pageDown}>Page down</button>
-                <InputText setText={props.handleText}/>
-                <button className={"filter-element"} onClick={props.fetchNextPage}>Page up</button>
+            <div>
+                <p>Navigate</p>
+                <input onChange={handleGallerySelector} type="radio" id="chars"
+                       name="selectedGallery" value="characters"/>
+                <label htmlFor="chars">Characters</label>
+                <input onChange={handleGallerySelector} type="radio" id="episodes"
+                       name="selectedGallery" value="episodes"/>
+                <label htmlFor="episodes">Episodes</label>
+
             </div>
-            <main>
-                {props.text!==""?
-                    <CharacterGallery characters={props.filteredChars}/>:
-                    <CharacterGallery characters={props.rmApiChars}/>}
-            </main>
+            {selectedG==="characters"?
+                <>
+                    <CharGalleryPage fetchNextPage={props.fetchNextPage} filteredChars={props.filteredChars}
+                                     handleFilter={props.handleFilter} handleText={props.handleText}
+                                     pageDown={props.pageDown} rmApiChars={props.rmApiChars} text={props.text}
+                                     episodes={props.rmApiEpisodes} galleryType={"characters"}/>
+                </>:
+                <p>Invalid</p>}
+
+
         </>
     )
 }
