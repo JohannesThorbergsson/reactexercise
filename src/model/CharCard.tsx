@@ -1,21 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-type origin = {name: string, url: string}
+import {Character} from "./Character";
 type location = {name: string, url: string}
-type Character = {
-    "id": number,
-    "name": string,
-    "status": string,
-    "species": string,
-    "type": string,
-    "gender": string,
-    "origin": origin,
-    "location": location,
-    "image": string,
-    "episode": string[],
-    "url": string,
-    "created": string
-}
 type charProp = {
     character: Character,
 

@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {Character} from "./Character";
+import {Character} from "../model/Character";
 import "./CharDetailPage.css"
 
 type charDetailProp = {

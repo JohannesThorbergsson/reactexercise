@@ -1,53 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import logo from './rick-and-morty-logo.png';
 import './App.css';
-import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import CharDetailPage from "./component/CharDetailPage";
-import {Character} from "./component/Character";
+import CharGalleryPage from "./component/CharGalleryPage";
+import useItemGallery from "./hooks/useItemGallery";
 import MainPage from "./component/MainPage";
 
 function App() {
-
-    const [text, setText] = useState<string>("")
-    const [filter, setFilter] = useState<string>("")
-    const [rmApiChars, setFullArray] = useState<Character[]>([])
-    const filteredChars: Character[] = applyFilter(rmApiChars)
-    const [page, setPage] = useState<number>(1)
-    useEffect(fetchRMApiChars, [page])
-
-    function fetchRMApiChars() {
-    axios.get("https://rickandmortyapi.com/api/character", {params: {page: page}})
-        .then(r=>setFullArray(r.data.results))
-        .catch( (error) => {console.log(error)})
-    }
-    // function fetchNextPage(){
-    //   setPage(page+1)
-    //   axios.get("https://rickandmortyapi.com/api/character", {params: {page: page}})
-    //       .then(r=>setFullArray([...rmApiChars, r.data.results]))
-    //       .catch( (error) => {console.log(error)})
-    //   console.log(page)
-    // }
-    function fetchNextPage() {
-      setPage(page+1)
-
-    }
-    function pageDown(){
-      if(page>1) {
-        setPage(page-1)
-      }
-    }
-    function handleText(text: string) {
-      setText(text)
-    }
-    function handleFilter(filter: string) {
-      setFilter(filter)
-    }
-    function applyFilter(arrayToFilter: Character[]): Character[] {
-      if(filter === "name" || filter==="species" || filter ==="status")
-      return arrayToFilter.filter((c:Character)  => c[filter].toLowerCase()
-          .includes(text.toLowerCase()))
-        else return []
+    const[selectedG, setGallery] = useState("characters")
+    const {handleText, handleFilter, filteredChars, fetchNextPage, pageDown, rmApiChars, text, setGalleryState,rmApiEpisodes} =
+        useItemGallery("character")
+    function handleGallerySelector(event: ChangeEvent<HTMLInputElement>){
+        setGallery(event.target.value)
     }
 
   return (
@@ -58,15 +23,32 @@ function App() {
           <strong>The Rick and Morty character gallery</strong>
         </h1>
       </header>
-      <Routes>
-          <Route path={""} element=
-              {<MainPage filteredChars={filteredChars} rmApiChars={rmApiChars} text={text}
-                         fetchNextPage={fetchNextPage} handleText={handleText}
-                         pageDown={pageDown} handleFilter={handleFilter}/>}/>
-          <Route path={"/details/:id"} element={<CharDetailPage chars={rmApiChars}/>}/>
-      </Routes>
+        <div>
+            <p>Navigate</p>
+            <input onChange={handleGallerySelector} type="radio" id="chars"
+                   name="selectedGallery" value="characters"/>
+            <label htmlFor="chars">Characters</label>
+            <input onChange={handleGallerySelector} type="radio" id="episodes"
+                   name="selectedGallery" value="episodes"/>
+            <label htmlFor="episodes">Episodes</label>
+
+        </div>
+        {selectedG==="characters"?
+            <>
+                <CharGalleryPage fetchNextPage={fetchNextPage} filteredChars={filteredChars}
+                                 handleFilter={handleFilter} handleText={handleText}
+                                 pageDown={pageDown} rmApiChars={rmApiChars} text={text}
+                                 episodes={rmApiEpisodes} galleryType={"characters"}/>
+            </>:
+            <p>Invalid</p>}
+                <Routes>
+                    <Route path={"/details/:id"} element={<CharDetailPage chars={rmApiChars}/>}/>
+                    {/*<Route path={""} element=*/}
+                    {/*    {<MainPage/>}/>*/}
+                </Routes>
+
     </div>
-  );
+  )
 }
 
 export default App;
